@@ -25,8 +25,8 @@
             android:id="@+id/btnAvtaler"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="50dp"
-            android:background="@null"
+            android:layout_height="100dp"
+            android:background="@drawable/bordered_icon"
             android:src="@drawable/kalender"
             android:scaleType="fitCenter"
             android:padding="5dp"
@@ -38,8 +38,8 @@
             android:id="@+id/btnKontakter"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="50dp"
-            android:background="@null"
+            android:layout_height="100dp"
+            android:background="@drawable/bordered_icon"
             android:src="@drawable/kontakter"
             android:scaleType="fitCenter"
             android:padding="5dp"
@@ -50,11 +50,12 @@
             android:id="@+id/btnPreferanser"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="50dp"
-            android:background="@null"
+            android:layout_height="100dp"
+            android:background="@drawable/bordered_icon"
             android:src="@drawable/pref"
             android:scaleType="fitCenter"
             android:padding="5dp"
+
              />
 
     </LinearLayout>

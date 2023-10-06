@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Inner padding for the border -->
+    <item>
+        <shape>
+            <solid android:color="#000000" />
+            <stroke
+                android:width="2dp"
+                android:color="#FFEB3B" /> <!-- fargen på grensen -->
+            <corners android:radius="0dp" /> <!-- Dette gir litt avrundede hjørner. Juster "radius" for å øke/minke rundingen -->
+        </shape>
+    </item>
+
+
+
+</layer-list>
