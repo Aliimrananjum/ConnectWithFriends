@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 /**
@@ -24,10 +28,46 @@ public class AvtalerFragment extends Fragment {
      * @param savedInstanceState - tidligere lagret tilstand av fragmentet
      * @return - returnerer rotvisningen for fragmentets layout
      */
+
+
+    private FloatingActionButton btnLeggTilAvtale;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Vi blåser opp fragment_avtale.xml som visningen for dette fragmentet
-        return inflater.inflate(R.layout.fragment_avtaler, container, false);
+        View view = inflater.inflate(R.layout.fragment_avtaler, container, false);
+
+        // Initialiser knappen
+        btnLeggTilAvtale = view.findViewById(R.id.btnLeggTilAvtale);
+
+        // Sett opp en OnClickListener for FAB
+        btnLeggTilAvtale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                visLeggTilAvtaleFragment();
+            }
+        });
+
+        return view;
+
     }
+
+    // Metode for å vise LeggTilAvtaleFragment når FAB blir trykket
+    private void visLeggTilAvtaleFragment() {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Opprett en ny instans av LeggTilAvtaleFragment
+        LeggTilAvtaleFragment leggTilAvtaleFragment = new LeggTilAvtaleFragment();
+
+        // Erstatt den nåværende fragmenten med LeggTilAvtaleFragment
+        fragmentTransaction.replace(R.id.frameLayout, leggTilAvtaleFragment);
+        fragmentTransaction.addToBackStack(null); // Dette gjør at brukeren kan navigere tilbake til AvtaleFragment ved å trykke tilbake-knappen
+
+        // Utfør endringene
+        fragmentTransaction.commit();
+    }
+
+
+
 }
