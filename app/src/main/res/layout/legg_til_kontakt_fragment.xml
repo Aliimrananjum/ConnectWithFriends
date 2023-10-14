@@ -8,18 +8,32 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Legg til kontakt"
+        android:text="Legg til Kontakt"
         android:textSize="24sp" />
 
+    <EditText
+        android:id="@+id/fornavn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp" />
+    <EditText
+        android:id="@+id/etternavn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/nummer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="vis"
-        android:id="@+id/visKontakt"/>
-    <TextView
-        android:id="@+id/visalle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:text="Lagre"
+        android:id="@+id/lagreKontakt"/>
+
 
 </LinearLayout>
+
+
+

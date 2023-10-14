@@ -14,6 +14,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -24,7 +28,7 @@ public class KontakterFragment extends Fragment {
     private EditText editTextFornavn, editTextEtternavn, editTextNummer;
     private TextView visalle;
 
-
+    private FloatingActionButton btnLeggTilAvtale;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -32,61 +36,23 @@ public class KontakterFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_kontakter,container, false);
 
-        editTextFornavn = view.findViewById(R.id.fornavn);
-        editTextEtternavn = view.findViewById(R.id.etternavn);
-        editTextNummer = view.findViewById(R.id.nummer);
+        // Initialiser knappen
+        btnLeggTilAvtale = view.findViewById(R.id.btnLeggTilKontakt);
 
         visalle=view.findViewById(R.id.visalle);
+        showKontakt();
 
-        view.findViewById(R.id.lagreKontakt).setOnClickListener(new View.OnClickListener() {
+        btnLeggTilAvtale.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                saveKontakt();
-            }
-        });
-
-        view.findViewById(R.id.visKontakt).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showKontakt();
+            public void onClick(View v) {
+                visLeggTilKontantFragment();
             }
         });
 
         return view;
     }
 
-    private void saveKontakt(){
-        final String fornavn = editTextFornavn.getText().toString().trim();
-        final String etternavn = editTextEtternavn.getText().toString().trim();
-        final String nummer = editTextNummer.getText().toString().trim();
 
-        class SaveKontant extends AsyncTask<Void, Void, Void>{
-
-            @Override
-            protected Void doInBackground(Void... voids){
-                Kontakt kontakt = new Kontakt();
-                kontakt.setFornavn(fornavn);
-                kontakt.setEtternavn(etternavn);
-                kontakt.setNummer(nummer);
-
-                DatabaseClient.getInstance(getActivity().getApplicationContext())
-                        .getAppDatabase()
-                        .kontaktDao()
-                        .insert(kontakt);
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid){
-                super.onPostExecute(aVoid);
-                Toast.makeText(getActivity().getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        SaveKontant saveTask = new SaveKontant();
-        saveTask.execute();
-    }
 
 
     private void showKontakt() {
@@ -107,6 +73,22 @@ public class KontakterFragment extends Fragment {
                 Toast.makeText(getActivity().getApplicationContext(), "Vist", Toast.LENGTH_LONG).show();
             });
         });
+
+    }
+
+    private void visLeggTilKontantFragment() {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Opprett en ny instans av LeggTilAvtaleFragment
+        LeggTilKontaktFragment leggTilKontaktFragment = new LeggTilKontaktFragment();
+
+        // Erstatt den nåværende fragmenten med LeggTilAvtaleFragment
+        fragmentTransaction.replace(R.id.frameLayout, leggTilKontaktFragment);
+        fragmentTransaction.addToBackStack(null); // Dette gjør at brukeren kan navigere tilbake til AvtaleFragment ved å trykke tilbake-knappen
+
+        // Utfør endringene
+        fragmentTransaction.commit();
     }
 
 
