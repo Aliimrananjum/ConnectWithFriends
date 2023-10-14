@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,11 +15,19 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
+
 
 /**
  * AvtalerFragment representerer skjermen for avtaler.
  */
 public class AvtalerFragment extends Fragment {
+
+    private AvtaleDataKilde dataKilde;
+    private ArrayAdapter<Avtale> avtaleArrayAdapter;
+
+    private List<Avtale> avtaler;
+
 
     /**
      * Denne metoden kalles når fragmentets brukergrensesnitt skal tegnes for første gang.
@@ -37,6 +47,20 @@ public class AvtalerFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_avtaler, container, false);
 
+
+
+
+        dataKilde = new AvtaleDataKilde(getActivity());
+        dataKilde.open();
+        ListView avtaleListView = view.findViewById(R.id.listView);
+        avtaler = dataKilde.finnAlleAvtaler();
+
+        avtaleArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, avtaler);
+        avtaleListView.setAdapter(avtaleArrayAdapter);
+
+        avtaleListView.setAdapter(avtaleArrayAdapter);
+
+
         // Initialiser knappen
         btnLeggTilAvtale = view.findViewById(R.id.btnLeggTilAvtale);
 
@@ -49,6 +73,10 @@ public class AvtalerFragment extends Fragment {
         });
 
         return view;
+
+
+
+
 
     }
 

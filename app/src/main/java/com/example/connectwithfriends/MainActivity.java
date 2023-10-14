@@ -33,8 +33,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Sett opp startfragmentet
+        loadFragment(new AvtalerFragment());
 
-       /*
+
+    /*
         dataKilde = new AvtaleDataKilde(this);
         dataKilde.open();
         ListView avtaleListView = findViewById(R.id.listView);
@@ -44,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, avtaler);
 
         avtaleListView.setAdapter(avtaleArrayAdapter);
+
 
 
 
@@ -59,13 +63,14 @@ public class MainActivity extends AppCompatActivity {
          */
 
 
+
+
         // Kobler knappene fra XML til Java-koden
         btnAvtaler = findViewById(R.id.btnAvtaler);
         btnKontakter = findViewById(R.id.btnKontakter);
         btnPreferanser = findViewById(R.id.btnPreferanser);
 
-        // Sett opp startfragmentet
-        loadFragment(new AvtalerFragment());
+
 
         // Når "Avtaler"-knappen trykkes, last AvtalerFragment
         btnAvtaler.setOnClickListener(new View.OnClickListener() {
